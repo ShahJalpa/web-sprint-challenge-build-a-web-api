@@ -33,4 +33,30 @@ router.post("/", verifyAction, async (req, res, next)=>{
     }
 })
 
+//put/update by id
+router.put("/:id", verifyActionId, verifyAction, async(req, res, next) => {
+    try{
+        const {id} = req.params.id
+        const updateAction = await Actions.update(id, req.body)
+        if(updateAction){
+            res.json(updateAction)
+        }else{
+            res.status(500).json({message:"update not possible"})
+        }
+    }catch(error){
+        next(error)
+    }
+})
+
+//delete action
+router.delete("/:id", verifyActionId, async(req, res, next) => {
+    try{
+        const {id} = req.params.id
+        const deleteAction = await Actions.remove(id)
+        res.json(deleteAction)
+    }catch(error){
+        next(error)
+    }
+})
+
 module.exports = router;
