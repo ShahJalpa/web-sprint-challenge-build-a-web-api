@@ -29,6 +29,20 @@ function verifyAction(req, res, next){
     }
 }
 
+async function verifyProjectId(req, res, next){
+    try{
+        const { id } = req.params
+        const projectId = await Projects.get(id)
+        if(!projectId){
+            res.status(404).json({message:"project not found"})
+        }else{
+            req.projectId = projectId;
+            next();
+        }
+    }catch(err){
+        next(err);
+    }
+}
 
 
-module.exports = {logger, verifyActionId, verifyAction}
+module.exports = {logger, verifyActionId, verifyAction, verifyProjectId}
