@@ -1,0 +1,26 @@
+const Actions = require("../actions/actions-model");
+const Projects = require("../projects/projects-model");
+
+function logger(req, res, next){
+    console.log(`Request Method: ${req.method} Request URL: ${req.url} TimeStamp: ${new Date()}`)
+    next();
+}
+
+async function verifyActionId(req, res, next){
+    try{
+        const { id } = req.params
+        const actionId = await Actions.get(id)
+        if(!actionId){
+            res.status(404).json({message:"action not found"})
+        }else{
+            req.actionId = actionId;
+            next();
+        }
+    }catch(err){
+        next(err);
+    }
+}
+
+
+
+module.exports = {logger, verifyActionId}
