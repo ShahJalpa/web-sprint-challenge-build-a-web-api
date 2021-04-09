@@ -63,6 +63,7 @@ router.get("/:id/actions", verifyProjectId, async(req, res, next) => {
     try{
         const projectActions = await Projects.getProjectActions(req.params.id)
         res.json(projectActions)
+        
     }catch(error){
         next(error)
     }
