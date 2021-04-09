@@ -1,7 +1,7 @@
 // Write your "projects" router here!
 const express = require("express");
 const Projects = require("./projects-model");
-const {verifyProjectId} = require("../middleware/middleware");
+const {verifyProjectId, verifyProject} = require("../middleware/middleware");
 
 const router = express.Router();
 
@@ -20,5 +20,16 @@ router.get("/:id", verifyProjectId, async(req, res, next) => {
     const project = req.projectId;
     res.json(project)
     next();
+})
+
+//post project
+router.post("/", verifyProject, async (req, res, next)=>{
+    try{
+        const newData = req.body
+        const newProject= await Projects.insert(newData)
+        res.status(201).json(newProject)
+    }catch(error){
+        next(error)
+    }
 })
 module.exports = router

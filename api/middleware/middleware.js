@@ -44,5 +44,11 @@ async function verifyProjectId(req, res, next){
     }
 }
 
-
-module.exports = {logger, verifyActionId, verifyAction, verifyProjectId}
+function verifyProject(req, res, next){
+    if(!req.body.name || !req.body.description){
+        res.status(400).json({message: "misiing fields required"})
+    }else{
+        next()
+    }
+}
+module.exports = {logger, verifyActionId, verifyAction, verifyProjectId, verifyProject}
