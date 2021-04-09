@@ -33,6 +33,21 @@ router.post("/", verifyProject, async (req, res, next)=>{
     }
 })
 
+//put/update by id
+router.put("/:id", verifyProjectId, verifyProject, async(req, res, next) => {
+    try{
+        //const {id} = req.params.id
+        const updateProject = await Projects.update(req.params.id, req.body)
+        if(updateProject){
+            res.json(updateProject)
+        }else{
+            res.status(500).json({message:"update not possible"})
+        }
+    }catch(error){
+        next(error)
+    }
+})
+
 //delete project
 router.delete("/:id", verifyProjectId, async(req, res, next) => {
     try{
