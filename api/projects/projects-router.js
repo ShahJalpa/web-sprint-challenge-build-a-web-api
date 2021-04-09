@@ -32,4 +32,15 @@ router.post("/", verifyProject, async (req, res, next)=>{
         next(error)
     }
 })
+
+//delete project
+router.delete("/:id", verifyProjectId, async(req, res, next) => {
+    try{
+        //const {id} = req.params.id
+        const deleteProject = await Projects.remove(req.param.id)
+        res.json(deleteProject)
+    }catch(error){
+        next(error)
+    }
+})
 module.exports = router
