@@ -25,8 +25,7 @@ router.get("/:id", verifyActionId, async(req, res, next) => {
 //post action
 router.post("/", verifyAction, async (req, res, next)=>{
     try{
-        const newData = req.body
-        const newAction = await Actions.insert(newData)
+        const newAction = await Actions.insert(req.body)
         res.status(201).json(newAction)
     }catch(error){
         next(error)
@@ -36,8 +35,7 @@ router.post("/", verifyAction, async (req, res, next)=>{
 //put/update by id
 router.put("/:id", verifyActionId, verifyAction, async(req, res, next) => {
     try{
-        const {id} = req.params.id
-        const updateAction = await Actions.update(id, req.body)
+        const updateAction = await Actions.update(req.params.id, req.body)
         if(updateAction){
             res.json(updateAction)
         }else{
@@ -52,8 +50,8 @@ router.put("/:id", verifyActionId, verifyAction, async(req, res, next) => {
 //delete action
 router.delete("/:id", verifyActionId, async(req, res, next) => {
     try{
-        const {id} = req.params.id
-        const deleteAction = await Actions.remove(id)
+        //const {id} = req.params.id
+        const deleteAction = await Actions.remove(req.params.id)
         res.json(deleteAction)
     }catch(error){
         next(error)

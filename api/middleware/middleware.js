@@ -23,7 +23,7 @@ async function verifyActionId(req, res, next){
 
 function verifyAction(req, res, next){
     if(!req.body.project_id || !req.body.description || !req.body.notes){
-        res.status(400).json({message:"required misiing data"})
+        res.status(400).json({message:"missing required fields"})
     }else{
         next();
     }
