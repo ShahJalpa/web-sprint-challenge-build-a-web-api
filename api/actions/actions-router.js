@@ -15,4 +15,11 @@ router.get("/", async(req, res, next) => {
     }
 })
 
+//get action by id
+router.get("/:id", verifyActionId, async(req, res, next) => {
+    const action = req.actionId;
+    res.json(action)
+    next();
+})
+
 module.exports = router;
