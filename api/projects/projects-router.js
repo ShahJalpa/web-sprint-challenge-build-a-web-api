@@ -58,4 +58,14 @@ router.delete("/:id", verifyProjectId, async(req, res, next) => {
         next(error)
     }
 })
+
+//endpoint for retrieving the list of actions
+router.get("/:id/actions", verifyProjectId, async(req, res, next) => {
+    try{
+        const projectActions = await Projects.getProjectActions(req.params.id)
+        res.json(projectActions)
+    }catch(error){
+        next(error)
+    }
+})
 module.exports = router
